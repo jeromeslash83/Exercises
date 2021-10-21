@@ -1,0 +1,18 @@
+import urllib.request, urllib.parse, urllib.error
+from bs4 import BeautifulSoup
+
+url = input('Enter URL:')
+count = int(input('Enter count: '))
+position = int(input('Enter position: '))
+
+iteration = 0
+for i in range(count):
+    site = urllib.request.urlopen(url).read()
+    soup = BeautifulSoup(site, 'html.parser')
+    tags = soup('a')
+    for tag in tags:
+        iteration += 1  
+        if iteration % position ==0:
+            url = tag.get('href', None)
+            print(f"Retrieving: {tag.get('href', None)}")
+            break
